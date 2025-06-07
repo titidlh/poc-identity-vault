@@ -1,20 +1,20 @@
-// issuer-api/package.json
+import express from 'express'
+import cors from 'cors'
+import { issueCredential } from './issue.js'
 
-{
-  "name": "issuer-api",
-  "version": "1.0.0",
-  "main": "server.ts",
-  "type": "module",
-  "scripts": {
-    "start": "ts-node server.ts"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "jose": "^5.2.0"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.3"
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+app.post('/issue', async (req, res) => {
+  try {
+    const jwt = await issueCredential(req.body)
+    res.json({ jwt })
+  } catch (e) {
+    res.status(500).json({ error: 'Issuance failed' })
   }
-}
+})
+
+app.listen(3001, () => {
+  console.log('Issuer API running on port 3001')
+})

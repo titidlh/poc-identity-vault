@@ -3,7 +3,7 @@
 import { useNavigate } from 'react-router-dom';
 import { simulateBiometric, verifyPIN } from '@/lib/auth';
 import { useState } from 'react';
-import { toast, Toaster } from '@/components/ui/sonner';
+import { toast, Toaster } from 'sonner';
 
 export default function Home() {
   const [pin, setPin] = useState('');

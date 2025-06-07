@@ -1,20 +1,10 @@
-// issuer-api/package.json
+import { SignJWT } from 'jose'
 
-{
-  "name": "issuer-api",
-  "version": "1.0.0",
-  "main": "server.ts",
-  "type": "module",
-  "scripts": {
-    "start": "ts-node server.ts"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "jose": "^5.2.0"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.3"
-  }
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'secret');
+
+export async function issueCredential(payload: any): Promise<string> {
+  return new SignJWT(payload)
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .sign(SECRET);
 }

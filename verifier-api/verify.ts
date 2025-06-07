@@ -1,20 +1,12 @@
-// verifier-api/package.json
+import { jwtVerify } from 'jose'
 
-{
-  "name": "verifier-api",
-  "version": "1.0.0",
-  "main": "server.ts",
-  "type": "module",
-  "scripts": {
-    "start": "ts-node server.ts"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "jose": "^5.2.0"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.3"
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'secret');
+
+export async function verifyCredential(token: string): Promise<{verified: boolean; payload?: any}> {
+  try {
+    const { payload } = await jwtVerify(token, SECRET)
+    return { verified: true, payload }
+  } catch {
+    return { verified: false }
   }
 }
