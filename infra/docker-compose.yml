@@ -1,0 +1,34 @@
+# infra/docker-compose.yml
+
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ../frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/app
+    working_dir: /app
+    command: npm run dev
+
+  issuer-api:
+    build:
+      context: ../issuer-api
+    ports:
+      - "3001:3001"
+    volumes:
+      - ../issuer-api:/app
+    working_dir: /app
+    command: npm run start
+
+  verifier-api:
+    build:
+      context: ../verifier-api
+    ports:
+      - "3002:3002"
+    volumes:
+      - ../verifier-api:/app
+    working_dir: /app
+    command: npm run start
