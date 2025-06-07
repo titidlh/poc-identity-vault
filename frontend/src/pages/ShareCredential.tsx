@@ -3,7 +3,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { decryptVault } from '@/lib/crypto';
-import { toast, Toaster } from '@/components/ui/sonner';
+import { toast, Toaster } from 'sonner';
 
 export default function ShareCredential() {
   const { id } = useParams();

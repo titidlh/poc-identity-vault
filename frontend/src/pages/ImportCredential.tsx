@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { encryptVault } from '@/lib/crypto';
 import { useNavigate } from 'react-router-dom';
-import { toast, Toaster } from '@/components/ui/sonner';
+import { decryptVault } from "@/lib/crypto";
+import { toast, Toaster } from 'sonner';
 
 export default function ImportCredential() {
   const [form, setForm] = useState({ name: '', type: 'VaccinationCertificate', vaccine: '', date: '' });
